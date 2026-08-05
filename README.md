@@ -35,39 +35,9 @@ StudyMind is a full-stack SaaS web application that transforms uploaded study do
 
 ---
 
-## 📸 Screenshots
+## 📸 Preview
 
-### Landing Page
-![Landing](screenshots/Landingpage_P1.png)
-![Features](screenshots/Landingpage_P2.png)
-![FAQ](screenshots/Landingpage_P3.png)
-![CTA](screenshots/Landingpage_P4.png)
-![Footer](screenshots/Landingpage_P5.png)
-
-### Authentication
-![Login](screenshots/Login.png)
-![Register](screenshots/Register.png)
-
-### Dashboard
-![Dashboard](screenshots/Dashboard.png)
-![Upload](screenshots/Fileuploade.png)
-![Delete](screenshots/Deleteuploadenote.png)
-
-### AI Features
-![Summary](screenshots/GenerateSummary.png)
-![Summary + Quiz + Chat](screenshots/Generatesummary_Quizz_Chat.png)
-
-### Quiz
-![Quiz P1](screenshots/Quizz_P1.png)
-![Quiz P2](screenshots/Quizz_P2.png)
-![Answers](screenshots/Quizz_answer.png)
-![Score](screenshots/Quizz_answer_P2.png)
-
-### Profile
-![Account](screenshots/Profile.png)
-![Security](screenshots/Profile_security.png)
-![Preferences](screenshots/Profile_pereference.png)
-![Danger Zone](screenshots/Profile_Dangerzone.png)
+![StudyMind](screenshots/Studymind.png)
 
 ---
 
@@ -89,6 +59,9 @@ StudyMind is a full-stack SaaS web application that transforms uploaded study do
 ### AI
 - Groq API (LLaMA 3.3 70B)
 - RAG Architecture
+- Tested with Groq (LLaMA 3.3 70B), OpenAI GPT, Google Gemini
+
+
 
 ---
 
@@ -139,7 +112,7 @@ MySQL relational database with 4 core tables — `users`, `notes`, `chats`, and 
 ### Prerequisites
 - Node.js v18+
 - MySQL 8.0
-- Groq API Key → [console.groq.com](https://console.groq.com)
+- Any AI API Key (Groq / OpenAI / Gemini)
 
 ### Backend Setup
 ```bash

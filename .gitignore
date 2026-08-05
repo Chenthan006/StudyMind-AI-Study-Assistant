@@ -24,3 +24,8 @@ desktop.ini
 
 # Uploaded files
 server/uploads/
+
+# Ignore all screenshot files in the screenshots folder
+screenshots/*
+# Except the main banner image
+!screenshots/Studymind.png
