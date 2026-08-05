@@ -1,13 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {
-  uploadNote,
-  getNotes,
-  deleteNote,
-  getNote,
-  generateSummary,
-  generateQuiz
-} = require('../controllers/noteController');
+const { uploadNote, getNotes, deleteNote, getNote, generateSummary, generateQuiz, generateFlashcards } =
+  require('../controllers/noteController');
 const auth = require('../middleware/auth');
 const multer = require('multer');
 
@@ -26,5 +20,6 @@ router.get('/:id', auth, getNote);
 router.post('/:id/summary', auth, generateSummary);
 router.post('/:id/quiz', auth, generateQuiz);
 router.delete('/:id', auth, deleteNote);
+router.post('/:id/flashcards', auth, generateFlashcards);
 
 module.exports = router;

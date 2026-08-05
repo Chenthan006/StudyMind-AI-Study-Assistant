@@ -61,3 +61,28 @@ Notes: ${truncated}`
   if (!jsonMatch) throw new Error('Invalid quiz format from AI');
   return JSON.parse(jsonMatch[0]);
 };
+exports.generateFlashcards = async (text) => {
+  const truncated = text.slice(0, 8000);
+  const response = await groq.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
+    max_tokens: 2000,
+    messages: [
+      {
+        role: 'user',
+        content: `Generate 8 flashcards from these notes.
+Return ONLY a JSON array, nothing else:
+[
+  {
+    "front": "Question or term here?",
+    "back": "Answer or definition here"
+  }
+]
+Notes: ${truncated}`
+      }
+    ]
+  });
+  const content = response.choices[0].message.content;
+  const jsonMatch = content.match(/\[[\s\S]*\]/);
+  if (!jsonMatch) throw new Error('Invalid flashcard format');
+  return JSON.parse(jsonMatch[0]);
+};

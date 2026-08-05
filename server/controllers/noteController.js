@@ -6,7 +6,7 @@ const ai = require('../utils/aiService');
 let pdfParse;
 try {
   pdfParse = require('pdf-parse');
-} catch(e) {
+} catch (e) {
   console.log('pdf-parse not loaded');
 }
 
@@ -107,6 +107,24 @@ exports.generateQuiz = async (req, res) => {
     res.json({ quiz });
   } catch (err) {
     console.log('QUIZ ERROR:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.generateFlashcards = async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      'SELECT * FROM notes WHERE id = ? AND user_id = ?',
+      [req.params.id, req.user.id]
+    );
+    if (!rows.length) return res.status(404).json({ error: 'Note not found' });
+    const text = rows[0].extracted_text;
+    if (!text || text.startsWith('PDF_FILE:')) {
+      return res.status(400).json({ error: 'PDF not ready' });
+    }
+    const flashcards = await ai.generateFlashcards(text);
+    res.json({ flashcards });
+  } catch (err) {
+    console.log('FLASHCARD ERROR:', err.message);
     res.status(500).json({ error: err.message });
   }
 };

@@ -29,3 +29,26 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+exports.updateProfile = async (req, res) => {
+  try {
+    const { name } = req.body;
+    await db.query('UPDATE users SET name = ? WHERE id = ?', [name, req.user.id]);
+    const [rows] = await db.query('SELECT id, name, email FROM users WHERE id = ?', [req.user.id]);
+    res.json({ user: rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [req.user.id]);
+    const valid = await bcrypt.compare(currentPassword, rows[0].password);
+    if (!valid) return res.status(400).json({ error: 'Current password is incorrect' });
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await db.query('UPDATE users SET password = ? WHERE id = ?', [hashed, req.user.id]);
+    res.json({ message: 'Password changed successfully!' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

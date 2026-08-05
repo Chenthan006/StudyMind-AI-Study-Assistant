@@ -48,12 +48,11 @@ export default function Dashboard() {
   const filteredNotes = notes.filter(n => n.title.toLowerCase().includes(search.toLowerCase()));
 
   const navItems = [
-    { icon: '⊞', label: 'Dashboard' },
-    { icon: '📚', label: 'My Notes' },
-    { icon: '⚡', label: 'Flashcards' },
-    { icon: '🏆', label: 'Quizzes' },
+    { icon: '⊞', label: 'Dashboard', path: '/dashboard' },
+    { icon: '📚', label: 'My Notes', path: '/dashboard' },
+    { icon: '⚡', label: 'Flashcards', path: '/flashcards' },
+    { icon: '🏆', label: 'Quizzes', path: '/quizzes' },
   ];
-
   return (
     <div className="flex min-h-screen bg-[#0a0a14] text-white">
 
@@ -62,7 +61,7 @@ export default function Dashboard() {
         {/* Logo */}
         <div className="flex items-center gap-3 mb-10 px-2">
           <div className="flex items-center justify-center text-2xl">
-           🧠
+            🧠
           </div>
           <span className="font-black text-lg tracking-tight">StudyMind</span>
         </div>
@@ -72,17 +71,11 @@ export default function Dashboard() {
           {navItems.map((item) => (
             <button
               key={item.label}
-              onClick={() => {
-                setActive(item.label);
-                if (item.label === 'Flashcards' || item.label === 'Quizzes') {
-                  alert('Coming soon! 🚀');
-                }
-              }}
-              className={`w-full px-4 py-2.5 rounded-xl flex items-center gap-3 text-sm transition ${
-                active === item.label
+              onClick={() => { setActive(item.label); navigate(item.path); }}
+              className={`w-full px-4 py-2.5 rounded-xl flex items-center gap-3 text-sm transition ${active === item.label
                   ? 'bg-[#7c3aed]/20 text-white border border-[#7c3aed]/30 font-semibold'
                   : 'text-gray-500 hover:bg-white/5 hover:text-white'
-              }`}
+                }`}
             >
               <span className="text-base">{item.icon}</span>
               {item.label}
@@ -92,33 +85,33 @@ export default function Dashboard() {
         </nav>
 
         {/* Profile */}
-{/* Profile */}
-<div className="border-t border-white/5 pt-4">
-  <div
-    onClick={() => navigate('/profile')}
-    className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition cursor-pointer group"
-  >
-    <div className="relative flex-shrink-0">
-      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#7c3aed] to-[#a3e635] flex items-center justify-center text-sm font-black shadow-lg">
-        {user?.name?.charAt(0).toUpperCase()}
-      </div>
-      <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-[#0a0a14]" />
-    </div>
-    <div className="flex-1 min-w-0">
-      <p className="text-sm font-semibold text-white truncate">{user?.name}</p>
-      <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-    </div>
-    <button
-      onClick={(e) => { e.stopPropagation(); logout(); }}
-      className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-red-400 transition p-1 rounded-lg"
-      title="Logout"
-    >
-      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-      </svg>
-    </button>
-  </div>
-</div>
+        {/* Profile */}
+        <div className="border-t border-white/5 pt-4">
+          <div
+            onClick={() => navigate('/profile')}
+            className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-white/5 transition cursor-pointer group"
+          >
+            <div className="relative flex-shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#7c3aed] to-[#a3e635] flex items-center justify-center text-sm font-black shadow-lg">
+                {user?.name?.charAt(0).toUpperCase()}
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-[#0a0a14]" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-white truncate">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); logout(); }}
+              className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-red-400 transition p-1 rounded-lg"
+              title="Logout"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </aside>
 
       {/* Main */}
